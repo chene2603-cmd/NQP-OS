@@ -1,0 +1,43 @@
+// IEC 61131-3 ST结构化语文法定义
+// ai_control/st_grammar.lark
+
+start: program
+
+program: "PROGRAM" identifier program_body "END_PROGRAM"
+program_body: variable_declarations? statement_list?
+
+// 变量声明
+variable_declarations: "VAR" (variable_declaration ";" )* "END_VAR"
+variable_declaration: identifier ":" data_type
+data_type: "BOOL" | "INT" | "REAL" | "STRING"
+
+// 语句列表
+statement_list: (statement ";" )*
+statement: assignment | if_statement | while_statement | for_statement
+
+// 赋值语句
+assignment: identifier ":=" expression
+
+// 条件语句
+if_statement: "IF" expression "THEN" statement_list ("ELSE" statement_list)? "END_IF"
+
+// 循环语句
+while_statement: "WHILE" expression "DO" statement_list "END_WHILE"
+for_statement: "FOR" identifier ":=" expression "TO" expression ("STEP" expression)? "DO" statement_list "END_FOR"
+
+// 表达式（优先级：加减 < 乘除 < 原子）
+expression: term (("+" | "-") term)*
+term: factor (("*" | "/") factor)*
+factor: NUMBER | identifier | "(" expression ")" | boolean
+
+// 布尔值
+boolean: "TRUE" | "FALSE"
+
+// 基础类型
+identifier: /[A-Za-z_][A-Za-z0-9_]*/
+NUMBER: /\d+(\.\d+)?/
+
+// 忽略空格、制表符、换行
+%ignore /\s+/
+// 忽略注释（/* ... */）
+%ignore /\(\*.*?\*\)/s
