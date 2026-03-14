@@ -1,5 +1,5 @@
-Python
-pycache/
+# Python
+__pycache__/
 *.py[cod]
 *$py.class
 *.so
@@ -9,27 +9,27 @@ env/
 venv/
 ENV/
 
-IDE
+# IDE
 .vscode/
 .idea/
 
-Logs and databases
+# Logs and databases
 logs/
 *.log
 *.sqlite3
 
-OS
+# OS
 .DS_Store
 Thumbs.db
 
-Jupyter
+# Jupyter
 .ipynb_checkpoints
 
-FlyGym cache
+# FlyGym cache
 .flygym/
 
-Models
+# Models
 models/*.zip
 
-Executables (if your simulator is a binary)
+# Executables (if your simulator is a binary)
 ColdAtom_Simulator_v3.*
